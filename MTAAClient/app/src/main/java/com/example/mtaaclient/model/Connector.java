@@ -1,17 +1,17 @@
-package com.example.martin.apptest.model;
+package com.example.mtaaclient.model;
 
-import android.util.Log;
-
-import com.example.martin.apptest.RegistrationActivity;
+import com.example.mtaaclient.RegistrationActivity;
+import com.example.mtaaclient.model.ResponseResult;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.HttpURLConnection;
 
 
+@Deprecated
 public class Connector {
 
     public static final String SERVER_URL = "http://147.175.161.247:8080";
