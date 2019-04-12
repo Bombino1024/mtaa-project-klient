@@ -13,7 +13,7 @@ import java.net.URL;
 
 public abstract class RestParent extends AsyncTask<String, String, ResponseResult> {
 
-    public static final String SERVER_URL = "http://147.175.161.247:8080";
+    public static final String SERVER_URL = "http://147.175.163.234:8080";
     protected ResponseDelegate delegate;
 
     public RestParent(ResponseDelegate delegate) {

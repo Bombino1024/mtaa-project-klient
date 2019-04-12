@@ -32,6 +32,7 @@ public class RegistrationActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         initView();
+        openLogin();
     }
 
     private void initView() {

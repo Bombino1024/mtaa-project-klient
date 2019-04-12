@@ -21,8 +21,8 @@ public class MainActivity extends Activity {
     }
 
     private void initView() {
-        mUserNameText = (TextView) findViewById(R.id.userNameText);
-        mImage = (ImageView) findViewById(R.id.lilkoImage);
+//        mUserNameText = (TextView) findViewById(R.id.userNameText);
+//        mImage = (ImageView) findViewById(R.id.lilkoImage);
     }
 
     public void buttonClicked(View view) {

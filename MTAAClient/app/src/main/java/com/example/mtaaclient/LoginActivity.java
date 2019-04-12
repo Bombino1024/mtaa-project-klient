@@ -1,6 +1,7 @@
 package com.example.mtaaclient;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -51,9 +52,21 @@ public class LoginActivity extends Activity {
         if (result.getCode() == 200/*409*/) {
 //            mRegistrationEmail.setError("Email already in use");
             Toast.makeText(this, "Pouzivatel sa uspesne prihlasil", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Token je " + result.getBody(), Toast.LENGTH_SHORT).show();
+            Saver.getInstance(this).saveToken(result.getBody());
 //           setContentView(R.layout.activity_main);
+            openHomeScreen();
         } else {
             Toast.makeText(this, "NIeco je zle " + result.getCode(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void openHomeScreen() {
+//        Saver.getInstance(this).saveToken("HelloFriend!");
+//        String token = Saver.getInstance(this).getToken();
+
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivity(i);
+        this.finish();
     }
 }

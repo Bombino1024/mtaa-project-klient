@@ -1,6 +1,7 @@
 package com.example.martin.apptest;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -51,9 +52,15 @@ public class LoginActivity extends Activity {
         if (result.getCode() == 200/*409*/) {
 //            mRegistrationEmail.setError("Email already in use");
             Toast.makeText(this, "Pouzivatel sa uspesne prihlasil", Toast.LENGTH_SHORT).show();
+            openWater();
 //           setContentView(R.layout.activity_main);
         } else {
             Toast.makeText(this, "NIeco je zle " + result.getCode(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void openWater() {
+        Intent i = new Intent(this, GetWaterActivity.class);
+        startActivity(i);
     }
 }
