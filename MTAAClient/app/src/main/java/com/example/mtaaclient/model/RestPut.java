@@ -9,15 +9,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class RestPost extends RestParent{
-
+public class RestPut extends RestParent {
     private Context context = null;
 
-    public RestPost(ResponseDelegate delegate) {
+    public RestPut(ResponseDelegate delegate) {
         super(delegate);
     }
 
-    public RestPost(ResponseDelegate delegate, Context context){
+    public RestPut(ResponseDelegate delegate, Context context){
         super(delegate);
         this.context = context;
     }
@@ -26,25 +25,19 @@ public class RestPost extends RestParent{
     protected ResponseResult doInBackground(String... params) {
         URL endPointURL = null;
         try {
-            endPointURL = new URL(SERVER_URL + params[0]);
+            endPointURL = new URL(SERVER_URL + params[0] + resolveParams(params));
 
             HttpURLConnection myConnection = initConnection(endPointURL);
             myConnection.setDoInput(true);
             myConnection.setDoOutput(true);
-            myConnection.setRequestMethod("POST");
+            myConnection.setRequestMethod("PUT");
 
             myConnection.setRequestProperty("Content-Type", "application/json");
             myConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
-
-            if(context != null){
-                myConnection.setRequestProperty("Authorization", Saver.getInstance(context).getToken());
-
-            }
-
-//            if(Saver.getInstance(this).getToken() )
-//            myConnection.setRequestProperty("Authorization", "7b84e15c-acd8-47dc-b4ee-659eb929");
-
-//            myConnection.setRequestProperty("Authorization", Saver.getInstance(this).getToken());
+//            if(context != null){
+//                myConnection.setRequestProperty("Authorization", Saver.getInstance(context).getToken());
+//
+//            }
 
             processOutput(myConnection, params);
 
@@ -57,8 +50,16 @@ public class RestPost extends RestParent{
         return new ResponseResult(HttpURLConnection.HTTP_CLIENT_TIMEOUT);
     }
 
+//    @Override
+//    protected String resolveParams(String[] params) {
+//        return params[1];
+//    }
+
     @Override
     protected String resolveParams(String[] params) {
-        return params[1];
+        if(params == null || params.length == 1){
+            return super.resolveParams(params);
+        }
+        return "?" + super.resolveParams(params);
     }
 }

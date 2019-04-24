@@ -91,4 +91,28 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Water"
+            android:id="@+id/updateWater"
+            android:onClick="updateWater"/>
+        <!--<Button-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Confirm"-->
+            <!--android:id="@+id/waterUpdateConfirm"-->
+            <!--android:onClick="updateGoals"-->
+            <!--/>-->
+
+    </LinearLayout>
+
+
+
 </RelativeLayout>

@@ -9,15 +9,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class RestPost extends RestParent{
+public class RestDelete extends RestParent {
+    private Context context;
 
-    private Context context = null;
-
-    public RestPost(ResponseDelegate delegate) {
+    public RestDelete(ResponseDelegate delegate) {
         super(delegate);
     }
 
-    public RestPost(ResponseDelegate delegate, Context context){
+    public RestDelete(ResponseDelegate delegate, Context context){
         super(delegate);
         this.context = context;
     }
@@ -31,7 +30,7 @@ public class RestPost extends RestParent{
             HttpURLConnection myConnection = initConnection(endPointURL);
             myConnection.setDoInput(true);
             myConnection.setDoOutput(true);
-            myConnection.setRequestMethod("POST");
+            myConnection.setRequestMethod("DELETE");
 
             myConnection.setRequestProperty("Content-Type", "application/json");
             myConnection.setRequestProperty("Accept", "application/json, text/plain, */*");
@@ -61,4 +60,5 @@ public class RestPost extends RestParent{
     protected String resolveParams(String[] params) {
         return params[1];
     }
+
 }

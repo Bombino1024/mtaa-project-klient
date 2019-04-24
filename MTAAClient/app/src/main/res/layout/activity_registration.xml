@@ -55,6 +55,17 @@
             android:inputType="textPassword" />
 
         <Button
+            android:onClick="selectImageFromGalery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick image" />
+
+        <ImageView
+            android:id="@+id/imageShower"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
             android:id="@+id/registrationButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

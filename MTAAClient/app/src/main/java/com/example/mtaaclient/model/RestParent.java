@@ -13,7 +13,7 @@ import java.net.URL;
 
 public abstract class RestParent extends AsyncTask<String, String, ResponseResult> {
 
-    public static final String SERVER_URL = "http://147.175.163.234:8080";
+    public static final String SERVER_URL = "http://147.175.163.234:8082";
     protected ResponseDelegate delegate;
 
     public RestParent(ResponseDelegate delegate) {
@@ -33,7 +33,9 @@ public abstract class RestParent extends AsyncTask<String, String, ResponseResul
         os = myConnection.getOutputStream();
         BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(os, "UTF-8"));
-        writer.write(resolveParams(params));
+        if(params.length > 1){
+            writer.write(resolveParams(params));
+        }
         writer.flush();
     }
 

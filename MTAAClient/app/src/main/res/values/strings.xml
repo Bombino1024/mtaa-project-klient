@@ -9,4 +9,5 @@
     <string name="password">Password</string>
     <string name="send">SEND</string>
     <string name="choose_date">Choose date</string>
+    <string name="do_not_have_account_click_to_register">Do not have account? Click to register.</string>
 </resources>

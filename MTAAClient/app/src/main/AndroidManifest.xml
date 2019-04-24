@@ -3,6 +3,7 @@
     package="com.example.mtaaclient">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,16 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DayActivity"></activity>
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".AddSleepRecordActivity" />
+        <activity android:name=".DayActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".GetWaterActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegistrationActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".RegistrationActivity">
+
         </activity>
         <activity android:name=".MainActivity" />
     </application>

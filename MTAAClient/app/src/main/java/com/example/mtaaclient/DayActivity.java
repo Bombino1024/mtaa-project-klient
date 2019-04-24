@@ -1,17 +1,27 @@
 package com.example.mtaaclient;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mtaaclient.model.ResponseDelegate;
 import com.example.mtaaclient.model.ResponseResult;
 import com.example.mtaaclient.model.RestGet;
+import com.example.mtaaclient.model.RestPut;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +40,8 @@ public class DayActivity extends Activity {
     private RelativeLayout mSleepLayout;
     private TextView mSleepGoalText;
     private TextView mSleepText;
+    private Button mUpdateWater;
+    private final String TAG = "DayActivityErrorMessage";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +65,7 @@ public class DayActivity extends Activity {
         mSleepText = (TextView) findViewById(R.id.resultSleepText);
         mSleepGoalText = (TextView)findViewById(R.id.resultSleepGoalText);
         mSleepLayout = (RelativeLayout)findViewById(R.id.resutSleeplayout);
+        mUpdateWater = (Button)findViewById(R.id.updateWater);
     }
 
     public void getSleepButtonClicked(View view) {
@@ -74,7 +87,9 @@ public class DayActivity extends Activity {
         try {
             JSONObject json = new JSONObject(result.getBody());
             double interval = json.getDouble("interval");
-            mSleepText.setText("You slept for " + interval + " hour");
+            int hours = json.getInt("hours");
+            int minutes = json.getInt("minutes");
+            mSleepText.setText("You slept for " + hours + " hour and "+ minutes +" minutes");
             int goal = json.getInt("goal");
             mSleepGoalText.setText("Your goal is " + goal);
             Log.d("msg", "msg");
@@ -114,13 +129,62 @@ public class DayActivity extends Activity {
     public void onBackPressed() {
         if (mWaterLayout.getVisibility() == View.VISIBLE) {
             mWaterLayout.setVisibility(View.GONE);
+//            setContentView(R.layout.activity_day);
         } else {
             finish();
         }
         if(mSleepLayout.getVisibility() == View.VISIBLE){
             mSleepLayout.setVisibility(View.GONE);
+//            setContentView(R.layout.activity_day);
         }else{
             finish();
+        }
+    }
+
+    public void updateWater(final View view) {
+        final EditText taskEditText = new EditText(this);
+        taskEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Update Water")
+                .setMessage("How much did you drink?")
+                .setView(taskEditText)
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        waterUpdateCofirm(view, String.valueOf(taskEditText.getText()));
+
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+        dialog.show();
+    }
+
+    public void waterUpdateCofirm(View view, String amount) {
+        final Context context = this;
+        RestPut restPut = new RestPut(new ResponseDelegate() {
+            @Override
+            public void processResponse(ResponseResult result) {
+//                Log.d("msg", "db updated");
+                processResult(result);
+            }
+        });
+        int value = Integer.parseInt(amount);
+        String mChosenDate = mTextDate.getText().toString();
+        int control = Integer.parseInt(amount);
+        if(control < 0){
+                Toast.makeText(this, "Can't enter negative amount", Toast.LENGTH_SHORT).show();
+                return;
+        }
+        restPut.execute("/update_water", "token", Saver.getInstance(this).getToken(),
+                "date", mChosenDate, "amount", amount);
+    }
+
+    public void processResult(ResponseResult result){
+        if(result.getCode() == 200){
+            Toast.makeText(this, "Water amount updated", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Water amount not updated", Toast.LENGTH_SHORT).show();
         }
     }
 }

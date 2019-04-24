@@ -5,34 +5,34 @@ import android.content.SharedPreferences;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class Saver {
+public class URLSaver {
     private static final String MY_PREFS_NAME = "MyPref";
     private Context context;
-    private static Saver saver;
+    private static URLSaver urlSaver;
 
-    private Saver(Context context){
+    private URLSaver (Context context){
         this.context = context;
     }
 
-    public static Saver getInstance(Context context){
-        if(saver == null){
-            saver = new Saver(context);
+    public static URLSaver getInstance(Context context){
+        if(urlSaver == null){
+            urlSaver = new URLSaver(context);
         }
-        return saver;
+        return urlSaver;
     }
 
-    public void saveToken(String token){
+    public void saveImageURL(String ImageURL){
         SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putString("token", token);
+        editor.putString("ImageURL", ImageURL);
         editor.apply();
     }
 
-    public String getToken(){
+    public String getImageURL(){
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        return prefs.getString("token", "");
+        return prefs.getString("ImageURL", "");
     }
 
-    public void removeToken() {
+    public void removeImageURL() {
         SharedPreferences settings = context.getSharedPreferences("PreferencesName", Context.MODE_PRIVATE);
         settings.edit().clear().apply();
     }
